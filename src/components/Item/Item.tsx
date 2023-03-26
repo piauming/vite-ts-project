@@ -16,7 +16,7 @@ export interface ItemState {
     "rating": ItemRating;
 }
 
-export interface ItemProps extends ItemState {
+interface ItemProps extends ItemState {
     "addItemToCart": (id: number, count: number, title: string) => void;
 }
 
