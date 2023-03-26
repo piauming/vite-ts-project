@@ -26,18 +26,17 @@ function App() {
 		});
 	}, [])
 
-	const handleClick = () => {
-		addToCart({ id: 1, count: 2, title: "Nikee" });
+	const clickHandler = (id: number, count: number, title: string) => {
+		addToCart({ id: id, count: count, title: title });
 	}
 
 	return (
 		<div className="App">
-			<div onClick={handleClick}>Click</div>
 			<ul>
 				{
 					items && items.map(item => {
 						return (
-							<Item key={item.id} {...item} />
+							<Item key={item.id} {...item} onClick={clickHandler}/>
 						);
 					})
 				}
