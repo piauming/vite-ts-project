@@ -1,7 +1,8 @@
 import produce from 'immer';
 import { ActionType } from "../actions/type/index";
 import { Action } from "../actions/index";
-import initialState, { State } from "../initialState";
+import initialState from "../initialState";
+import State from '../State';
 
 const reducer = (state: State = initialState, action: Action): State => {
     return produce(state, (draft) => {
@@ -15,3 +16,5 @@ const reducer = (state: State = initialState, action: Action): State => {
 }
 
 export default reducer
+
+export type RootState = ReturnType<typeof reducer>
