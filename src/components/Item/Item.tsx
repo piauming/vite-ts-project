@@ -6,7 +6,7 @@ type ItemRating = {
     "count": number
 }
 
-interface ItemProps {
+export interface ItemState {
     "id": number;
     "title": string;
     "price": number;
@@ -14,13 +14,16 @@ interface ItemProps {
     "category": string;
     "image": string;
     "rating": ItemRating;
-    "onClick": (id: number, count: number, title: string) => void;
 }
 
-const Item: React.FC<ItemProps> = ({ id, title, onClick }) => {
+export interface ItemProps extends ItemState {
+    "addItemToCart": (id: number, count: number, title: string) => void;
+}
+
+const Item: React.FC<ItemProps> = ({ id, title, addItemToCart }) => {
     const handleClick = (e: MouseClickEvent, id: number, count: number, title: string) => {
         e.preventDefault();
-        onClick(id, count, title);
+        addItemToCart(id, count, title);
     }
 
     return (
