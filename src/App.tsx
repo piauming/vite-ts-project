@@ -4,16 +4,21 @@ import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-// actionCreators = "./actions/creators/index";
 import { actionCreators } from './redux';
+import { RootState } from './redux/reducers';
 
 import Item, { ItemProps } from './components/Item/Item'
 
 const URL_PRODUCTS = 'https://fakestoreapi.com/products';
 
 function App() {
+	const state = useSelector((state: RootState) => state)
 	const [items, setItems] = useState<ItemProps[] | null>()
 	const { addToCart } = bindActionCreators(actionCreators, useDispatch())
+
+	useEffect(()=> {
+		console.log("useEffect for state = ", state.cart.length);
+	},[state]);
 
 	useEffect(() => {
 		axios.get(URL_PRODUCTS).then(response => {
