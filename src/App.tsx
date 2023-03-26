@@ -7,14 +7,14 @@ import { bindActionCreators } from 'redux';
 import { actionCreators } from './redux';
 import { RootState } from './redux/reducers';
 
-import Item, { ItemProps } from './components/Item/Item'
+import Item, { ItemState } from './components/Item/Item'
 
 const URL_PRODUCTS = 'https://fakestoreapi.com/products';
 
 function App() {
-	const state = useSelector((state: RootState) => state)
-	const [items, setItems] = useState<ItemProps[] | null>()
-	const { addToCart } = bindActionCreators(actionCreators, useDispatch())
+	const state = useSelector((state: RootState) => state);
+	const [items, setItems] = useState<ItemState[] | null>();
+	const { addToCart } = bindActionCreators(actionCreators, useDispatch());
 
 	useEffect(()=> {
 		console.log("useEffect for state = ", state.cart.length);
@@ -26,17 +26,18 @@ function App() {
 		});
 	}, [])
 
-	const clickHandler = (id: number, count: number, title: string) => {
+	const addItemToCart = (id: number, count: number, title: string) => {
 		addToCart({ id: id, count: count, title: title });
 	}
 
 	return (
 		<div className="App">
+			<div>Cart: {state.cart.length} items</div>
 			<ul>
 				{
 					items && items.map(item => {
 						return (
-							<Item key={item.id} {...item} onClick={clickHandler}/>
+							<Item key={item.id} {...item} addItemToCart={addItemToCart}/>
 						);
 					})
 				}
