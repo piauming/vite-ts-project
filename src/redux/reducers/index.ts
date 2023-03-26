@@ -1,15 +1,7 @@
-import { ActionType } from "../actionTypes/index"
-import { Action } from "../actions"
-import { CartItem } from "../actionCreators";
 import produce from 'immer';
-
-interface State {
-    cart: CartItem[];
-}
-
-const initialState = {
-    cart: [],
-}
+import { ActionType } from "../actions/type/index";
+import { Action } from "../actions/index";
+import initialState, { State } from "../initialState";
 
 const reducer = (state: State = initialState, action: Action): State => {
     return produce(state, (draft) => {

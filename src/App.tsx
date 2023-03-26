@@ -4,22 +4,16 @@ import axios from 'axios';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
+// actionCreators = "./actions/creators/index";
 import { actionCreators } from './redux';
 
-
 import Item, { ItemProps } from './components/Item/Item'
-
-// never[]. This type represents an array that will never contain any elements (will always be empty).
 
 const URL_PRODUCTS = 'https://fakestoreapi.com/products';
 
 function App() {
 	const [items, setItems] = useState<ItemProps[] | null>()
-
-
-	const dispatch = useDispatch();
-
-  const { addToCart } = bindActionCreators(actionCreators, dispatch)
+	const { addToCart } = bindActionCreators(actionCreators, useDispatch())
 
 	useEffect(() => {
 		axios.get(URL_PRODUCTS).then(response => {
@@ -28,7 +22,7 @@ function App() {
 	}, [])
 
 	const handleClick = () => {
-		addToCart({id:1, count:2, title: "Nike"});
+		addToCart({ id: 1, count: 2, title: "Nikee" });
 	}
 
 	return (
@@ -38,7 +32,7 @@ function App() {
 				{
 					items && items.map(item => {
 						return (
-							<Item key={item.id} {...item}/>
+							<Item key={item.id} {...item} />
 						);
 					})
 				}
