@@ -16,9 +16,9 @@ function App() {
 	const [items, setItems] = useState<ItemState[] | null>();
 	const { addToCart } = bindActionCreators(actionCreators, useDispatch());
 
-	useEffect(()=> {
+	useEffect(() => {
 		console.log("useEffect for state = ", state.cart.length);
-	},[state]);
+	}, [state]);
 
 	useEffect(() => {
 		axios.get(URL_PRODUCTS).then(response => {
@@ -27,7 +27,7 @@ function App() {
 	}, [])
 
 	const addItemToCart = (id: number, count: number, title: string) => {
-		addToCart({ id: id, count: count, title: title });
+		addToCart(id, count, title);
 	}
 
 	return (
@@ -37,7 +37,7 @@ function App() {
 				{
 					items && items.map(item => {
 						return (
-							<Item key={item.id} {...item} addItemToCart={addItemToCart}/>
+							<Item key={item.id} {...item} addItemToCart={addItemToCart} />
 						);
 					})
 				}
